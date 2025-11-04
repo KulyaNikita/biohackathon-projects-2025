@@ -52,7 +52,7 @@ def extract_int_node_names(node):
     :return: renamed node
     '''
     # If the node has Homo_sapiens format
-    if re.fullmatch(r"[A-Za-z]+_[A-Za-z]+", node.name):
+    if re.fullmatch(r"[A-Za-z]+_[A-Za-z]+(_[A-Za-z]+)?", node.name):
         return node.name
     # if not
     name_parts = node.name.split('|')[0].split('_')
@@ -120,7 +120,7 @@ def count_number_of_sp(child):
     processed_nodes = set()
     for node_name in child:
         # If the alignment has Homo_sapiens format
-        if re.fullmatch(r"[A-Za-z]+_[A-Za-z]+", node_name):
+        if re.fullmatch(r"[A-Za-z]+_[A-Za-z]+(_[A-Za-z]+)?", node_name):
             processed_nodes.add(node_name)  # e.g. "Homo_sapiens"
             continue
         # if not
@@ -154,10 +154,10 @@ def deal_with_outparalogs(child1,child2,alignment_filename):
     :param child1, child2, alignment_filename: first child branch of  a duplication event, second branch, alignment file
     :return: nothing
     '''
-    print("Enter function")
+#    print("Enter function")
     which_br_to_keep = keep_on_branch(child1,child2)
     alignment = AlignIO.read(alignment_filename, "fasta")
-    print("Which branch: ", which_br_to_keep)
+#    print("Which branch: ", which_br_to_keep)
     removed_records = []
     base_name, ext = os.path.splitext(alignment_filename)
     removed_file = f"{base_name}.removed"
